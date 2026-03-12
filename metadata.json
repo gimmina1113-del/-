@@ -1,0 +1,5 @@
+{
+  "name": "Secret Story Phone",
+  "description": "An interactive iPhone simulation revealing a hidden story through messages, notes, and search history.",
+  "requestFramePermissions": []
+}
