@@ -148,7 +148,12 @@ function MessagesApp({ onBack }: { onBack: () => void }) {
               {day.messages.map((msg, j) => (
                 <div key={j} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap ${msg.sender === 'me' ? 'bg-blue-500 text-white' : 'bg-neutral-800 text-white'}`}>
-                    {msg.text}
+                    {msg.text.split(/(\*\*.*?\*\*)/g).map((part, k) => {
+                      if (part.startsWith('**') && part.endsWith('**')) {
+                        return <strong key={k} className="font-bold">{part.slice(2, -2)}</strong>;
+                      }
+                      return part;
+                    })}
                   </div>
                 </div>
               ))}
@@ -238,7 +243,14 @@ function NotesApp({ onBack }: { onBack: () => void }) {
         </div>
         <div className="flex-1 overflow-y-auto p-6 pb-8">
           <h1 className="text-2xl font-bold mb-4">{note?.date}</h1>
-          <p className="whitespace-pre-wrap text-neutral-800 leading-relaxed">{note?.text}</p>
+          <p className="whitespace-pre-wrap text-neutral-800 leading-relaxed">
+            {note?.text.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+              if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>;
+              }
+              return part;
+            })}
+          </p>
         </div>
       </div>
     );
